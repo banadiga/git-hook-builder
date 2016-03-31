@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if ! [ -x "$(command -v mvn)" ]; then
+  echo 'mvn is not installed.' >&2
+  exit 0
+fi
+
+echo "Running 'mvn clean compile' for errors..."
+MVN_RESULT=$(mvn clean compile 2>&1)
+if [ $? -ne 0 ]; then
+  echo "Aborting commit. Compilation error..."
+  exit 1
+fi
